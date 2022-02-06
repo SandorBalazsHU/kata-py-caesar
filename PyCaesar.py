@@ -1,8 +1,28 @@
-# https://realpython.com/python-gui-tkinter/#building-your-first-python-gui-application-with-tkinter
+# Caesar code in Python.
+# Created by: Sándor Balázs
+
+#TUTORIAL FOR GUI: https://realpython.com/python-gui-tkinter/#building-your-first-python-gui-application-with-tkinter
+
+"""
+Testcase:
+Password
+117
+Coded text:
+!uóLqFtóGÓu,xtuAópÓHópóLúűGDóúyHÖ
+gÁ?rÁ,yÖótJvCAűyÖópÓóp,zÁAOóvÁűOvpóyDÖ
+kúttÖóLúttÖóp?xűósGpzóLútvuHutÖópóüúAOHö
+Vpó?wAtuAórJGÓzuóvpFsó?qFóLúűuHóúFHÖ
+ÚGózpFypwtrpAóAwAsGówGó?qFóuFDÖ
+!uóLqFtóGÓu,xtuAópÓHópóLúűGDóúyHö
+kúttÖóLúttÖóp?xűósGpzóLútvuHutÖópóüúAOHö
+"""
 
 import tkinter as tk
 
-abc = ['A','a','Á','á','B','b','C','c','D','d','E','e','É','é','F','f','G','g','H','h','I','i','Í','í','J','j','K','k','L','l','M','m','N','n','O','o','Ó','ó','Ö','ö','Ő','ő','P','p','Q','q','R','r','S','s','T','t','U','u','Ú','ú','Ü','ü','Ű','ű','V','v','W','w','X','x','Y','y','Z','z']
+abc = ['A','a','Á','á','B','b','C','c','D','d','E','e','É','é','F','f','G','g','H','h','I','i','Í',
+       'í','J','j','K','k','L','l','M','m','N','n','O','o','Ó','ó','Ö','ö','Ő','ő','P','p','Q','q',
+       'R','r','S','s','T','t','U','u','Ú','ú','Ü','ü','Ű','ű','V','v','W','w','X','x','Y','y','Z',
+       'z',' ',',','.','?','!']
 
 def code():
     passTextContent = passText.get()
@@ -11,7 +31,7 @@ def code():
 
     for element in range(0, len(rawTextContent)):
         if(rawTextContent[element] in abc):
-            rawTextContent[element] = abc[(abc.index(rawTextContent[element])+password)%(len(abc)-1)]
+            rawTextContent[element] = abc[(abc.index(rawTextContent[element])+password)%(len(abc))]
 
     codedText.delete(1.0, tk.END)
     codedText.insert(tk.END, "".join(rawTextContent))
@@ -24,7 +44,7 @@ def decode():
 
     for element in range(0, len(codedTextContent)):
         if(codedTextContent[element] in abc):
-            codedTextContent[element] = abc[(abc.index(codedTextContent[element])-password)%(len(abc)-1)]
+            codedTextContent[element] = abc[(abc.index(codedTextContent[element])-password)%(len(abc))]
 
     rawText.delete(1.0, tk.END)
     rawText.insert(tk.END, "".join(codedTextContent))
