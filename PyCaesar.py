@@ -24,31 +24,43 @@ abc = ['A','a','Á','á','B','b','C','c','D','d','E','e','É','é','F','f','G','
        'R','r','S','s','T','t','U','u','Ú','ú','Ü','ü','Ű','ű','V','v','W','w','X','x','Y','y','Z',
        'z',' ',',','.','?','!']
 
+baseMessage = "Caesar encoder/decoder \nCreated by: Sándor Balázs"
+
 def code():
     passTextContent = passText.get()
-    password = int(passTextContent)
-    rawTextContent = list(rawText.get(1.0, tk.END))
+    if(passTextContent.isnumeric()):
+        password = int(passTextContent)
+        rawTextContent = list(rawText.get(1.0, tk.END))
+        rawTextContent.pop()
 
-    for element in range(0, len(rawTextContent)):
-        if(rawTextContent[element] in abc):
-            rawTextContent[element] = abc[(abc.index(rawTextContent[element])+password)%(len(abc))]
+        for element in range(0, len(rawTextContent)):
+            if(rawTextContent[element] in abc):
+                rawTextContent[element] = abc[(abc.index(rawTextContent[element])+password)%(len(abc))]
 
-    codedText.delete(1.0, tk.END)
-    codedText.insert(tk.END, "".join(rawTextContent))
-    rawText.delete(1.0, tk.END)
+        codedText.delete(1.0, tk.END)
+        codedText.insert(tk.END, "".join(rawTextContent))
+        rawText.delete(1.0, tk.END)
+        message.config(text = baseMessage)
+    else:
+        message.config(text = "The password not a number.")
 
 def decode():
     passTextContent = passText.get()
-    password = int(passTextContent)
-    codedTextContent = list(codedText.get(1.0, tk.END))
+    if(passTextContent.isnumeric()):
+        password = int(passTextContent)
+        codedTextContent = list(codedText.get(1.0, tk.END))
+        codedTextContent.pop()
 
-    for element in range(0, len(codedTextContent)):
-        if(codedTextContent[element] in abc):
-            codedTextContent[element] = abc[(abc.index(codedTextContent[element])-password)%(len(abc))]
+        for element in range(0, len(codedTextContent)):
+            if(codedTextContent[element] in abc):
+                codedTextContent[element] = abc[(abc.index(codedTextContent[element])-password)%(len(abc))]
 
-    rawText.delete(1.0, tk.END)
-    rawText.insert(tk.END, "".join(codedTextContent))
-    codedText.delete(1.0, tk.END)
+        rawText.delete(1.0, tk.END)
+        rawText.insert(tk.END, "".join(codedTextContent))
+        codedText.delete(1.0, tk.END)
+        message.config(text = baseMessage)
+    else:
+        message.config(text = "The password not a number.")
 
 window = tk.Tk()
 window.title("PyCaesar")
@@ -62,9 +74,14 @@ btn_save = tk.Button(window, text="DECODE", command=decode).grid(row=2, column=0
 
 passText = tk.Entry(window)
 passText.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
+
 rawText = tk.Text(window, height=12, width=40)
 rawText.grid(row=1, column=1, sticky="nsew", padx=5, pady=5)
+
 codedText = tk.Text(window, height=12, width=40)
 codedText.grid(row=2, column=1, sticky="nsew", padx=5, pady=5)
+
+message = tk.Label(text = baseMessage)
+message.grid(row=3, column=1, padx=5, pady=5)
 
 window.mainloop()
